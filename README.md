@@ -82,12 +82,12 @@ Paste realestate.com.au search URLs straight from your browser — every agent a
 |---|---|
 | **Mode** | `location` (list suburbs) or `url` (paste search URLs). Fields for the other mode are ignored. |
 | **Locations** | location mode — areas as `Suburb, STATE, Postcode`. |
-| **Listing types to search** | location mode — `buy`, `rent`, `sold` (default all). `sold` adds real sold-price stats. |
+| **Listing types to search** | Both modes — `buy`, `rent`, `sold` (default all). `sold` adds real sold-price stats. In url mode each URL runs as pasted, and the same area is also searched for the other selected types (price filters aren't carried over, since sale, rent and sold prices differ). |
 | **Include surrounding suburbs** | location mode — also include neighbouring suburbs. |
 | **Search URLs** | url mode — realestate.com.au search URLs. |
 | **Also return agencies** | Emit one record per agency, with its team roster and counts. |
 | **Max agents** | Stop after this many agents (`0` = all found). Agencies are returned in addition. |
-| **Max pages per search** | How deep to scan each search while discovering agents (more = more agents and better stats in big suburbs). |
+| **Max pages per search** | How deep to scan each search (up to 100 listings per page). More pages = more agents and fuller stats; a broad search needs far more than the default to approach full coverage. |
 
 ---
 
@@ -95,7 +95,15 @@ Paste realestate.com.au search URLs straight from your browser — every agent a
 
 The actor walks the live listings for your locations (or URLs) across the buy, rent, and sold channels, and assembles one record per agent and per agency from the people marketing those properties. An agent's counts, median sold price, and active suburbs are computed from the listings scanned in that run — so scanning more pages (higher **Max pages per search**) yields richer stats in large suburbs. Each agent and each agency is returned, and charged, only once per run, even when they appear on many listings.
 
-realestate.com.au serves at most 2,000 results per search; for very large areas, split them by suburb or add more specific URLs.
+### A sample, not a census
+
+Stats describe **the listings scanned in that run**, not every listing on the site. Each search is scanned up to **Max pages per search** (100 listings per page), and realestate.com.au serves at most 2,000 results for any single search. A single nationwide URL covers hundreds of thousands of listings, so one run sees only a slice of it: an agency with dozens of offices may appear with a handful. The run log warns whenever a search stops before its last result.
+
+For broad coverage, use **location mode with many suburbs** (each suburb × listing type is its own search with its own page budget), or paste many narrower URLs.
+
+### Agent totals vs agency totals
+
+A listing marketed by two agents is credited to **both** agents, so adding up agent-level counts counts that listing twice. Agency-level counts credit each listing **once** to its agency. To total listings by agency, franchise group or area, use the agency records.
 
 ---
 
