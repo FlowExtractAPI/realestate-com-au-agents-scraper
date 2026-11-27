@@ -1,30 +1,16 @@
-# 🧑‍💼 realestate.com.au Agents & Agencies Scraper
-
-**[realestate.com.au Agents & Agencies Scraper](https://apify.com/dz_omar/realestate-com-au-agents-scraper?fpr=smcx63)** turns a suburb, a postcode, or any realestate.com.au search URL into a clean, structured directory of **real estate agents and agencies** — with the contact details and performance signals you need for lead lists and market research.
-
-Every agent record carries their **email and phone**, the agency they work for, how many properties they currently have for sale and for rent, how many they've recently sold, their **median sold price**, and the suburbs they're active in. Every agency record carries its contacts, its team roster, and its listing counts.
+**[realestate.com.au Agents & Agencies Scraper](https://apify.com/dz_omar/realestate-com-au-agents-scraper?fpr=smcx63)** turns a **suburb, a postcode or any realestate.com.au search URL** into a clean directory of **real estate agents and agencies** — with **email and phone**, the agency, listings for sale and for rent, recent sales, **median sold price** and the suburbs each agent is active in.
 
 Perfect for **real estate CRMs and lead generation**, **recruiters** shortlisting top producers, **proptech and portals** building agent databases, and **market researchers** mapping who is active where.
 
----
+## What does realestate.com.au Agents & Agencies Scraper do?
 
-## Why scrape realestate.com.au agents?
+- **Two ways in** — list suburbs (`Sydney, NSW, 2000`) or paste realestate.com.au search URLs.
+- **Contacts on every agent** — primary email plus every published address, mobile and office phone.
+- **Performance signals** — for-sale, for-rent and recently-sold counts, median sold price, last sold date, active suburbs and property types.
+- **Agency records** — optional: contacts, the full team roster seen, agent count and listing counts.
+- **Each agent and agency once** — returned and charged once per run, however many listings they appear on.
 
-realestate.com.au is Australia's largest property portal. Behind every listing is the agent and agency marketing it — which makes it the most complete public picture of who is actively selling and leasing in any suburb, right now.
-
-Common use cases:
-
-- **Lead generation** — build a contact list of agents actively listing in your target suburbs, with email and phone on every row.
-- **Recruitment & talent scouting** — rank agents by properties sold, median sold price, and days on market, then reach out.
-- **CRM enrichment** — match agents and agencies to their current activity and contact details.
-- **Agency intelligence** — pull a whole agency's team roster and its for-sale / for-rent / sold counts.
-- **Market mapping** — see which agents and agencies dominate a suburb or region.
-
----
-
-## What data does it extract?
-
-### 🧑‍💼 Agent records
+### What data can you extract from realestate.com.au agents?
 
 | Field | Description |
 |---|---|
@@ -40,17 +26,45 @@ Common use cases:
 | `profileUrl`, `photo` | realestate.com.au profile link and headshot |
 | `sampleListings` | A few of the agent's current/recent listings for context |
 
-### 🏢 Agency records (optional)
+**Agency records (optional):** name, email(s), phone, website, office address, suburb/state/postcode, profile link, logo, the **full team roster** of agents seen, `agentCount`, and listing counts (for sale / for rent / sold) with a median sold price.
 
-Name, email(s), phone, website, office address, suburb/state/postcode, profile link, logo, the **full team roster** of agents seen, an `agentCount`, and listing counts (for sale / for rent / sold) with a median sold price.
+### Why scrape realestate.com.au agents?
 
----
+realestate.com.au is Australia's largest property portal, and behind every listing is the agent marketing it — the most complete public picture of who is selling and leasing in any suburb right now.
 
-## ⚙️ How to use
+- **Lead generation** — contact lists of agents actively listing in your target suburbs.
+- **Recruitment & talent scouting** — rank agents by properties sold, median sold price and activity.
+- **CRM enrichment** — match agents and agencies to current activity and contact details.
+- **Agency intelligence** — a whole agency's team roster with for-sale / for-rent / sold counts.
+- **Market mapping** — which agents and agencies dominate a suburb or region.
 
-### Mode: **By location**
+### Why use it on Apify?
 
-List one or more areas as `Suburb, STATE, Postcode` (postcode optional):
+Running it on Apify gives you **API access**, **scheduling**, **monitoring**, **integrations** (Make, Zapier, n8n, webhooks) and **proxy rotation** without managing infrastructure.
+
+## How to scrape realestate.com.au agents
+
+1. Open [realestate.com.au Agents & Agencies Scraper](https://apify.com/dz_omar/realestate-com-au-agents-scraper?fpr=smcx63) in Apify Console.
+2. Choose **Mode**: `location` (list suburbs) or `url` (paste search URLs).
+3. Enter **Locations** as `Suburb, STATE, Postcode`, or paste **Search URLs**.
+4. Pick **Listing types to search** (`buy`, `rent`, `sold`), turn on **Also return agencies** if needed, and set **Max agents** (start small: `50`).
+5. Click **Start**, then download the results as JSON, CSV or Excel, or fetch them over the API.
+
+## How much does it cost to scrape realestate.com.au agents?
+
+You pay per record returned:
+
+| Event | FREE | BRONZE | SILVER | GOLD |
+|---|---|---|---|---|
+| Agent record | $0.0018 | $0.0015 | $0.0013 | $0.0011 |
+| Agency record (when *Also return agencies* is on) | $0.0018 | $0.0015 | $0.0013 | $0.0011 |
+
+- **1,000 agents** cost about **$1.80** on the FREE plan price and **$1.10** on GOLD.
+- Cap any run with the **maximum cost per run** setting; test with `maxAgents: 10` first.
+
+## Input and output examples
+
+### Input — by location
 
 ```json
 {
@@ -62,9 +76,7 @@ List one or more areas as `Suburb, STATE, Postcode` (postcode optional):
 }
 ```
 
-### Mode: **By search URL**
-
-Paste realestate.com.au search URLs straight from your browser — every agent and agency in those results is returned:
+### Input — by search URL
 
 ```json
 {
@@ -76,49 +88,18 @@ Paste realestate.com.au search URLs straight from your browser — every agent a
 }
 ```
 
-### Input options
-
 | Option | Description |
 |---|---|
 | **Mode** | `location` (list suburbs) or `url` (paste search URLs). Fields for the other mode are ignored. |
-| **Locations** | location mode — areas as `Suburb, STATE, Postcode`. |
-| **Listing types to search** | Both modes — `buy`, `rent`, `sold` (default all). `sold` adds real sold-price stats. In url mode each URL runs as pasted, and the same area is also searched for the other selected types (price filters aren't carried over, since sale, rent and sold prices differ). |
+| **Locations** | location mode — areas as `Suburb, STATE, Postcode` (postcode optional). |
+| **Listing types to search** | Both modes — `buy`, `rent`, `sold` (default all). `sold` adds real sold-price stats. In url mode each URL runs as pasted, and the same area is also searched for the other selected types (price filters aren't carried over). |
 | **Include surrounding suburbs** | location mode — also include neighbouring suburbs. |
 | **Search URLs** | url mode — realestate.com.au search URLs. |
-| **Also return agencies** | Emit one record per agency, with its team roster and counts. |
+| **Also return agencies** | One record per agency, with its team roster and counts. |
 | **Max agents** | Stop after this many agents (`0` = all found). Agencies are returned in addition. |
-| **Max pages per search** | How deep to scan each search (up to 100 listings per page). More pages = more agents and fuller stats; a broad search needs far more than the default to approach full coverage. |
+| **Max pages per search** | How deep to scan each search (up to 100 listings per page). More pages = more agents and fuller stats. |
 
----
-
-## How agents and their stats are built
-
-The actor walks the live listings for your locations (or URLs) across the buy, rent, and sold channels, and assembles one record per agent and per agency from the people marketing those properties. An agent's counts, median sold price, and active suburbs are computed from the listings scanned in that run — so scanning more pages (higher **Max pages per search**) yields richer stats in large suburbs. Each agent and each agency is returned, and charged, only once per run, even when they appear on many listings.
-
-### A sample, not a census
-
-Stats describe **the listings scanned in that run**, not every listing on the site. Each search is scanned up to **Max pages per search** (100 listings per page), and realestate.com.au serves at most 2,000 results for any single search. A single nationwide URL covers hundreds of thousands of listings, so one run sees only a slice of it: an agency with dozens of offices may appear with a handful. The run log warns whenever a search stops before its last result.
-
-For broad coverage, use **location mode with many suburbs** (each suburb × listing type is its own search with its own page budget), or paste many narrower URLs.
-
-### Agent totals vs agency totals
-
-A listing marketed by two agents is credited to **both** agents, so adding up agent-level counts counts that listing twice. Agency-level counts credit each listing **once** to its agency. To total listings by agency, franchise group or area, use the agency records.
-
----
-
-## 💵 Pricing
-
-This Actor uses **pay-per-event** pricing:
-
-- **Agent record** — charged once per agent returned.
-- **Agency record** — charged once per agency returned (only when *Also return agencies* is on).
-
-You can see current per-tier rates on the Actor's **Pricing** tab, and cap any run with the **maximum cost per run** setting.
-
----
-
-## 📤 Output example
+### Output
 
 ```json
 {
@@ -159,45 +140,71 @@ You can see current per-tier rates on the Actor's **Pricing** tab, and cap any r
 
 Values above are illustrative placeholders, not a real record.
 
----
+## Other Actors you might need
 
-## 🧭 Tips & limits
+<!-- RECOMMENDED:START (generated by apify-actor-forge/tools/recommend.py; edits inside are overwritten) -->
+
+| Actor | What it adds |
+|---|---|
+| **[realestate.com.au Scraper](https://apify.com/dz_omar/realestate-com-au-scraper?fpr=smcx63)** | Buy, rent & sold listings from any search URL with agent contacts, inspections & photos |
+| **[Domain.com.au Scraper](https://apify.com/dz_omar/domain-scraper?fpr=smcx63)** | Australian listings with agent contacts, nearby schools, market insights & floor plans |
+| **[realcommercial.com.au Scraper](https://apify.com/dz_omar/realcommercial-com-au-scraper?fpr=smcx63)** | Sold, Leased & Agent Phones |
+| **[Idealista Scraper API](https://apify.com/dz_omar/idealista-scraper-api?fpr=smcx63)** | Any Search URL, No Result Cap & France |
+| **[California Business & UCC Lien Search](https://apify.com/dz_omar/california-bizfile-scraper?fpr=smcx63)** | California business entities & UCC liens: status, registered agent and filings |
+
+<!-- RECOMMENDED:END -->
+
+## Frequently asked questions
+
+### How are agents and their stats built?
+
+The Actor walks the live listings for your locations (or URLs) across the buy, rent and sold channels and assembles one record per agent and per agency from the people marketing those properties. Counts, median sold price and active suburbs are computed from the listings scanned in that run — so a higher **Max pages per search** gives richer stats in large suburbs.
+
+### Are the stats a full census?
+
+No — a sample. Stats describe **the listings scanned in that run**. Each search is scanned up to **Max pages per search** (100 listings per page), and realestate.com.au serves at most 2,000 results per search, so a single nationwide URL sees only a slice; an agency with dozens of offices may appear with a handful. The run log warns whenever a search stops before its last result. For broad coverage, use location mode with many suburbs (each suburb × listing type is its own search), or paste many narrower URLs.
+
+### Why don't agent totals add up to agency totals?
+
+A listing marketed by two agents is credited to **both** agents, so summing agent counts counts it twice. Agency counts credit each listing **once**. To total by agency, franchise group or area, use the agency records.
+
+### Why did I get fewer results than expected?
 
 | Situation | What you see | What to do |
 |---|---|---|
-| A pasted URL isn't a recognized realestate.com.au URL | It's skipped with a note in the run log | Copy the URL directly from your browser |
-| A location entry can't be read | It's skipped with a note in the run log | Use the `Suburb, STATE, Postcode` form |
-| A suburb has fewer agents than `Max agents` | You get all the agents found | Add more suburbs/URLs, or raise *Max pages per search* |
+| A pasted URL isn't a recognized realestate.com.au URL | Skipped, with a note in the run log | Copy the URL directly from your browser |
+| A location entry can't be read | Skipped, with a note in the run log | Use the `Suburb, STATE, Postcode` form |
+| A suburb has fewer agents than `Max agents` | All the agents found | Add more suburbs/URLs, or raise *Max pages per search* |
 | Nothing usable in the input | A single guidance item in the dataset | Add a location or a search URL |
 
----
+### Do I need a realestate.com.au account?
 
-## 🌟 Related Actors
+No. The Actor reads publicly visible listings — no login and no cookies.
 
-- **[realestate.com.au Scraper](https://apify.com/dz_omar/realestate-com-au-scraper?fpr=smcx63)** — the property listings behind these agents (buy, rent, sold) with full details
-- **[domain.com.au Scraper](https://apify.com/dz_omar/domain-scraper?fpr=smcx63)** — Australia's #2 property portal: listings, agents and contacts
+### Is it legal to use the contact details?
 
----
+The data is publicly available, but you are responsible for using contact details lawfully — for example under the Australian Privacy Act and Spam Act: no spam or unsolicited bulk outreach. This is not legal advice.
+
+### Can I use it in Make, Zapier, n8n or my own code?
+
+Yes — through Apify's integrations, or with the Apify API and client libraries.
 
 ## Support
 
-- 🙋 **Apify Profile**: [FlowExtract API](https://apify.com/dz_omar?fpr=smcx63)
-- 🌐 **Website**: [flowextractapi.com](https://flowextractapi.com)
-- 📧 **Email**: flowextractapi@outlook.com
-- 💬 **GitHub**: [FlowExtractAPI](https://github.com/FlowExtractAPI)
-- 💼 **LinkedIn**: [flowextract-api](https://www.linkedin.com/in/flowextract-api/)
-- 🐦 **X**: [@FlowExtractAPI](https://x.com/FlowExtractAPI)
-- 📱 **Facebook**: [flowextractapi](https://www.facebook.com/flowextractapi)
-- 🎵 **TikTok**: [@flowextractapi](https://www.tiktok.com/@flowextractapi)
-
----
+- 🌐 **Website:** [flowextractapi.com](https://flowextractapi.com)
+- 📧 **Email:** [support@flowextractapi.com](mailto:support@flowextractapi.com)
+- 💬 **GitHub:** [FlowExtractAPI](https://github.com/FlowExtractAPI)
+- 💼 **LinkedIn:** [flowextract-api](https://www.linkedin.com/in/flowextract-api/)
+- 🐦 **X (Twitter):** [@FlowExtractAPI](https://x.com/FlowExtractAPI)
+- 📱 **Facebook:** [flowextractapi](https://www.facebook.com/flowextractapi)
+- 🎵 **TikTok:** [@flowextractapi](https://www.tiktok.com/@flowextractapi)
 
 ## Legal & compliance
 
-- Extracts **publicly available agent and agency data only** — the same information any visitor sees without logging in.
-- Respects the source site's rate limits and terms; built for research and analysis, not for overwhelming the site.
-- No storage of personal information by the actor beyond your own run's dataset.
-- Suitable for commercial use. You are responsible for using extracted contact details lawfully (e.g. the Australian Privacy Act and Spam Act) — no spam or unsolicited bulk outreach.
+- **Public data only** — agent and agency data any visitor sees without logging in.
+- **Rate limiting** — modest request rates with back-off; built for research and analysis.
+- **Data protection** — no storage of personal information beyond your own run's dataset.
+- **Commercial use** — suitable for business intelligence and research.
 - No affiliation with or endorsement by realestate.com.au or REA Group is implied.
 
 ---
